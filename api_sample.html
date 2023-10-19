@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Sample</title>
+</head>
+<body>
+    <input type="text" name="" id="search-input">
+    <button id="search-btn">Search</button>
+    <div>
+        <ol id="result-list"></ol>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById("search-input");
+        const searchBtn = document.getElementById("search-btn");
+        const resultList = document.getElementById("result-list");
+
+        const apiLink = "https://fakestoreapi.com/products/category/";
+
+        function searchFromAPI(keyword) {
+            fetch(apiLink + keyword).then(res=>res.json()).then(json=>{
+                for(let i=0; i < json.length; i++){
+                    resultList.innerHTML += `<li>${json[i].title}</li>`;
+                    console.log(json[i]);
+                }
+            });
+        }
+
+        searchBtn.onclick = () => {
+            searchFromAPI(searchInput.value);
+        }
+    </script>
+</body>
+</html>
